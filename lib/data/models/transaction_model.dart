@@ -1,29 +1,34 @@
-import 'package:hive/hive.dart';
-
-part 'transaction_model.g.dart';
-
-@HiveType(typeId: 0)
-class TransactionModel extends HiveObject {
-  @HiveField(0)
-  double amount;
-
-  @HiveField(1)
-  String category;
-
-  @HiveField(2)
-  DateTime date;
-
-  @HiveField(3)
-  String note;
-
-  @HiveField(4)
-  bool isIncome;
+class TransactionModel {
+  final String id; // ✅ Added: Unique identifier for each transaction
+  final double amount;
+  final String category;
+  final bool isIncome;
+  final String note;
+  final DateTime date;
 
   TransactionModel({
+    required this.id, // ✅ Added: Make sure to pass `id` while creating the model
     required this.amount,
     required this.category,
-    required this.date,
-    required this.note,
     required this.isIncome,
+    required this.note,
+    required this.date,
   });
+
+  // ✅ Added: Enables editing without mutating original object
+  TransactionModel copyWith({
+    double? amount,
+    String? category,
+    bool? isIncome,
+    String? note,
+  }) {
+    return TransactionModel(
+      id: id, // Preserve the same id
+      amount: amount ?? this.amount,
+      category: category ?? this.category,
+      isIncome: isIncome ?? this.isIncome,
+      note: note ?? this.note,
+      date: date, // Keep original date
+    );
+  }
 }

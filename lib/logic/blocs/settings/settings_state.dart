@@ -7,7 +7,15 @@ abstract class SettingsState extends Equatable {
   List<Object?> get props => [];
 }
 
-class SettingsInitial extends SettingsState {}
+class SettingsInitial extends SettingsState {
+  final bool isDarkMode; // ✅ Added
+  final String currency; // ✅ Added
+
+  const SettingsInitial({this.isDarkMode = false, this.currency = '৳'}); // ✅ Added constructor with defaults
+
+  @override
+  List<Object?> get props => [isDarkMode, currency]; // ✅ Updated to match fields
+}
 
 class SettingsLoaded extends SettingsState {
   final bool isDarkMode;

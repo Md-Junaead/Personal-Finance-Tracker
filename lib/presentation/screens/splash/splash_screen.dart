@@ -2,15 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-class SplashScreen extends StatefulWidget {
+  static const String routeName = '/';
   const SplashScreen({super.key});
 
   @override

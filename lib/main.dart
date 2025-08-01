@@ -1,14 +1,18 @@
+import 'package:finance_tracker/logic/blocs/budget/budget_event.dart';
+import 'package:finance_tracker/logic/blocs/category/category_event.dart';
+import 'package:finance_tracker/logic/blocs/settings/settings_event.dart';
+import 'package:finance_tracker/logic/blocs/settings/settings_state.dart';
+import 'package:finance_tracker/logic/blocs/transaction/transaction_event.dart';
+import 'package:finance_tracker/presentation/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'core/routes.dart';
 import 'logic/blocs/transaction/transaction_bloc.dart';
 import 'logic/blocs/category/category_bloc.dart';
 import 'logic/blocs/budget/budget_bloc.dart';
 import 'logic/blocs/settings/settings_bloc.dart';
 
-import 'screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,8 +52,7 @@ class MyApp extends StatelessWidget {
                 centerTitle: true,
               ),
             ),
-            initialRoute: SplashScreen.routeName,
-            routes: appRoutes,
+            home: const SplashScreen(),
           );
         },
       ),

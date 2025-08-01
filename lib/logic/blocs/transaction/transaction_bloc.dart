@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:finance_tracker/data/models/transaction_model.dart';
 import 'package:finance_tracker/data/repositories/transaction_repository.dart';
 
 import 'transaction_event.dart';
