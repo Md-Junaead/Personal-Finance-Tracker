@@ -1,13 +1,29 @@
+import 'package:hive/hive.dart'; // ✅ Import Hive here
+
+part 'transaction_model.g.dart'; // ✅ Reference to the generated part file
+
+@HiveType(typeId: 0) // Optional but recommended if using Hive code generation
 class TransactionModel {
-  final String id; // ✅ Added: Unique identifier for each transaction
+  @HiveField(0)
+  final String id; // Unique identifier for each transaction
+
+  @HiveField(1)
   final double amount;
+
+  @HiveField(2)
   final String category;
-  final bool isIncome;
-  final String note;
+
+  @HiveField(3)
   final DateTime date;
 
+  @HiveField(4)
+  final String note;
+
+  @HiveField(5)
+  final bool isIncome;
+
   TransactionModel({
-    required this.id, // ✅ Added: Make sure to pass `id` while creating the model
+    required this.id, // Must be passed when creating an instance
     required this.amount,
     required this.category,
     required this.isIncome,
@@ -15,7 +31,7 @@ class TransactionModel {
     required this.date,
   });
 
-  // ✅ Added: Enables editing without mutating original object
+  // Enables copying with modifications without mutating original object
   TransactionModel copyWith({
     double? amount,
     String? category,
@@ -23,12 +39,12 @@ class TransactionModel {
     String? note,
   }) {
     return TransactionModel(
-      id: id, // Preserve the same id
+      id: id, // Keep the same id to uniquely identify the transaction
       amount: amount ?? this.amount,
       category: category ?? this.category,
       isIncome: isIncome ?? this.isIncome,
       note: note ?? this.note,
-      date: date, // Keep original date
+      date: date, // Keep the original date
     );
   }
 }

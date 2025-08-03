@@ -13,7 +13,7 @@ class LoadCategories extends CategoryEvent {}
 class AddCategory extends CategoryEvent {
   final CategoryModel category;
 
-  const AddCategory(this.category);
+  const AddCategory(this.category, bool isIncome);
 
   @override
   List<Object?> get props => [category];
@@ -23,7 +23,7 @@ class UpdateCategory extends CategoryEvent {
   final int key;
   final CategoryModel updated;
 
-  const UpdateCategory(this.key, this.updated);
+  const UpdateCategory(this.key, this.updated, bool isIncome);
 
   @override
   List<Object?> get props => [key, updated];

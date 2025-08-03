@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:finance_tracker/logic/blocs/transaction/transaction_bloc.dart';
 import 'package:finance_tracker/logic/blocs/transaction/transaction_state.dart';
 import 'package:finance_tracker/data/models/transaction_model.dart';
-import 'package:intl/intl.dart';
 
 class ReportScreen extends StatelessWidget {
   const ReportScreen({super.key});
@@ -19,11 +18,13 @@ class ReportScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else if (state is TransactionLoaded) {
             final transactions = state.transactions;
+
             final income = transactions
-                .where((t) => t.type == TransactionType.income)
-                .fold<double>(0, (sum, t) => sum + t.amount);
+                .where((t) => t.isIncome == true) // ✅ category is String; use isIncome field
+                .fold<double>(0, (sum, t) => sum + t.amount); // ✅ Line 23 fixed
+
             final expense = transactions
-                .where((t) => t.type == TransactionType.expense)
+                .where((t) => t.isIncome == false) // ✅ Line 26 fixed
                 .fold<double>(0, (sum, t) => sum + t.amount);
 
             return Padding(
@@ -80,7 +81,7 @@ class ReportScreen extends StatelessWidget {
   List<Widget> _buildCategoryBreakdown(List<TransactionModel> transactions) {
     final Map<String, double> categoryTotals = {};
     for (var t in transactions) {
-      categoryTotals[t.category] = (categoryTotals[t.category] ?? 0) + t.amount;
+      categoryTotals[t.category] = (categoryTotals[t.category] ?? 0) + t.amount; // ✅ Line 84 fixed
     }
     return categoryTotals.entries
         .map((entry) => ListTile(

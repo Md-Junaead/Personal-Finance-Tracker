@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:finance_tracker/data/models/transaction_model.dart';
 import 'package:finance_tracker/logic/blocs/transaction/transaction_bloc.dart';
 import 'package:finance_tracker/logic/blocs/transaction/transaction_event.dart';
+import 'package:uuid/uuid.dart'; // <-- ✅ Added for unique ID generation
 
 class AddTransactionScreen extends StatefulWidget {
   const AddTransactionScreen({super.key});
@@ -62,6 +63,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     final txn = TransactionModel(
+                      id: const Uuid().v4(), // <-- ✅ Added this line to generate a unique ID
                       amount: double.parse(_amountController.text),
                       category: _category,
                       date: DateTime.now(),

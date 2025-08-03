@@ -1,3 +1,4 @@
+import 'package:finance_tracker/logic/blocs/transaction/transaction_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -47,7 +48,7 @@ class TransactionListScreen extends StatelessWidget {
                         onPressed: () {
                           context
                               .read<TransactionBloc>()
-                              .add(DeleteTransaction(txn.id));
+                              .add(DeleteTransaction(txn.id as int));
                         },
                       ),
                     ],

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:finance_tracker/data/models/transaction_model.dart'; // ✅ Added: Import the model to use in event
+import 'package:finance_tracker/data/models/transaction_model.dart'; // ✅ Import the model to use in event
 
 abstract class TransactionEvent extends Equatable {
   const TransactionEvent();
@@ -19,22 +19,23 @@ class AddTransaction extends TransactionEvent {
   List<Object?> get props => [transaction];
 }
 
-// ✅ Updated: Now accepts both updated transaction and its ID
+// ✅ Updated: changed `id` type from String to int (Hive key)
 class UpdateTransaction extends TransactionEvent {
   final TransactionModel updatedTransaction;
-  final String id;
+  final int key; // ✅ changed from String id to int key
 
-  const UpdateTransaction(this.updatedTransaction, this.id);
+  const UpdateTransaction(this.updatedTransaction, this.key); // ✅ updated constructor
 
   @override
-  List<Object?> get props => [updatedTransaction, id];
+  List<Object?> get props => [updatedTransaction, key]; // ✅ updated props
 }
 
+// ✅ Updated: changed `id` type from String to int (Hive key)
 class DeleteTransaction extends TransactionEvent {
-  final String id;
+  final int key; // ✅ changed from String id to int key
 
-  const DeleteTransaction(this.id);
+  const DeleteTransaction(this.key); // ✅ updated constructor
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [key]; // ✅ updated props
 }

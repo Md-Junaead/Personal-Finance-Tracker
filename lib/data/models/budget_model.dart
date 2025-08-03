@@ -14,4 +14,15 @@ class BudgetModel extends HiveObject {
     required this.monthlyLimit,
     required this.notificationsEnabled,
   });
+
+  // ✅ Add this method
+  BudgetModel copyWith({
+    double? monthlyLimit,
+    bool? notificationsEnabled,
+  }) {
+    return BudgetModel(
+      monthlyLimit: monthlyLimit ?? this.monthlyLimit,
+      notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
+    );
+  }
 }

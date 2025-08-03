@@ -30,7 +30,10 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
     on<UpdateTransaction>((event, emit) async {
       try {
-        await _repository.updateTransaction(event.key, event.updated);
+        await _repository.updateTransaction(
+          event.key,                     // No change, 'key' is correct
+          event.updatedTransaction,     // ✅ Changed from event.updated to event.updatedTransaction
+        );
         add(LoadTransactions());
       } catch (e) {
         print("[ERROR] UpdateTransaction: $e");

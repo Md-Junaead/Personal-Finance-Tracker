@@ -1,7 +1,7 @@
+import 'package:finance_tracker/logic/blocs/settings/settings_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:finance_tracker/logic/blocs/settings/settings_bloc.dart';
-import 'package:finance_tracker/logic/blocs/settings/settings_event.dart';
 import 'package:finance_tracker/logic/blocs/settings/settings_state.dart';
 
 class SettingsScreen extends StatelessWidget {

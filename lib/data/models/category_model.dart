@@ -14,4 +14,7 @@ class CategoryModel extends HiveObject {
     required this.name,
     required this.isIncome,
   });
+
+  // ✅ Use HiveObject key as ID
+  int get id => key as int; // ✅ Updated: now returns the Hive key as an int
 }

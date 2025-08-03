@@ -1,7 +1,7 @@
+import 'package:finance_tracker/logic/blocs/budget/budget_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:finance_tracker/logic/blocs/budget/budget_bloc.dart';
-import 'package:finance_tracker/logic/blocs/budget/budget_event.dart';
 import 'package:finance_tracker/logic/blocs/budget/budget_state.dart';
 
 class BudgetScreen extends StatefulWidget {

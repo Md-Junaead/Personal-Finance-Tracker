@@ -7,7 +7,11 @@ import 'package:finance_tracker/logic/blocs/transaction/transaction_event.dart';
 
 class EditTransactionScreen extends StatefulWidget {
   final TransactionModel transaction;
-  const EditTransactionScreen({super.key, required this.transaction});
+
+  const EditTransactionScreen({
+    super.key,
+    required this.transaction, required index,
+  });
 
   @override
   State<EditTransactionScreen> createState() => _EditTransactionScreenState();
@@ -79,18 +83,20 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                   isIncome: _isIncome,
                   note: _noteController.text,
                 );
-                context
-                    .read<TransactionBloc>()
-                    .add(UpdateTransaction(updated));
+                // Pass the transaction id here
+                context.read<TransactionBloc>().add(
+                  UpdateTransaction(widget.transaction.id as TransactionModel, updated as int),
+                );
                 context.go('/list');
               },
               child: const Text("Update"),
             ),
             TextButton(
               onPressed: () {
-                context
-                    .read<TransactionBloc>()
-                    .add(DeleteTransaction(widget.transaction.id));
+                // Pass the transaction id here for deletion
+                context.read<TransactionBloc>().add(
+                  DeleteTransaction(widget.transaction.id as int),
+                );
                 context.go('/list');
               },
               child: const Text("Delete"),
@@ -105,4 +111,3 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
     );
   }
 }
-

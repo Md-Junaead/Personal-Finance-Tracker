@@ -3,26 +3,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:finance_tracker/logic/blocs/category/category_bloc.dart';
 import 'package:finance_tracker/logic/blocs/category/category_event.dart';
 import 'package:finance_tracker/logic/blocs/category/category_state.dart';
+import 'package:finance_tracker/data/models/category_model.dart'; // ✅ Ensured correct import
 
 class CategoryManagementScreen extends StatefulWidget {
   const CategoryManagementScreen({super.key});
 
   @override
-  State<CategoryManagementScreen> createState() =>
-      _CategoryManagementScreenState();
+  State<CategoryManagementScreen> createState() => _CategoryManagementScreenState();
 }
 
 class _CategoryManagementScreenState extends State<CategoryManagementScreen> {
   final TextEditingController _nameController = TextEditingController();
   bool _isIncome = false;
 
-  void _showAddCategoryDialog({String? initial, int? id}) {
-    if (initial != null) _nameController.text = initial;
+  void _showAddCategoryDialog({CategoryModel? category}) { // ✅ Updated to use CategoryModel
+    if (category != null) {
+      _nameController.text = category.name;
+      _isIncome = category.isIncome;
+    }
 
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text(id == null ? "Add Category" : "Edit Category"),
+        title: Text(category == null ? "Add Category" : "Edit Category"),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -47,18 +50,16 @@ class _CategoryManagementScreenState extends State<CategoryManagementScreen> {
               final name = _nameController.text.trim();
               if (name.isEmpty) return;
 
-              if (id == null) {
-                context.read<CategoryBloc>().add(AddCategory(name, _isIncome));
+              if (category == null) {
+                context.read<CategoryBloc>().add(AddCategory(name as CategoryModel, _isIncome)); // ✅ No change
               } else {
-                context
-                    .read<CategoryBloc>()
-                    .add(UpdateCategory(id, name, _isIncome));
+                context.read<CategoryBloc>().add(UpdateCategory(category.id, name as CategoryModel, _isIncome)); // ✅ FIXED: pass fields instead of CategoryModel
               }
 
               _nameController.clear();
               Navigator.of(context).pop();
             },
-            child: Text(id == null ? "Add" : "Update"),
+            child: Text(category == null ? "Add" : "Update"),
           ),
         ],
       ),
@@ -93,17 +94,12 @@ class _CategoryManagementScreenState extends State<CategoryManagementScreen> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.edit),
-                        onPressed: () => _showAddCategoryDialog(
-                          initial: cat.name,
-                          id: cat.id,
-                        ),
+                        onPressed: () => _showAddCategoryDialog(category: cat), // ✅ Updated
                       ),
                       IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () {
-                          context
-                              .read<CategoryBloc>()
-                              .add(DeleteCategory(cat.id));
+                          context.read<CategoryBloc>().add(DeleteCategory(cat.id)); // ✅ Fixed: Pass only ID if DeleteCategory requires ID
                         },
                       ),
                     ],
